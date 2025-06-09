@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog Rosa & Morado</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom right, #fce4ec, #e1bee7);
+      color: #4a148c;
+    }
+
+    header {
+      background-color: #ec407a;
+      padding: 1.5rem;
+      text-align: center;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      margin: 0.5rem 0;
+    }
+
+    .entry-preview {
+      margin-bottom: 2rem;
+      cursor: pointer;
+    }
+
+    .entry-preview img {
+      width: 10%;
+      border-radius: 0.5rem;
+    }
+
+    .blog-post img {
+      width: 100%;
+      border-radius: 1rem;
+      margin: 1rem 0;
+    }
+
+    button {
+      background-color: #ce93d8;
+      border: none;
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      cursor: pointer;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Blog Rosa & Morado</h1>
+    <nav>
+      <a href="#" onclick="showHome()">Inicio</a>
+    </nav>
+  </header>
+
+  <main id="content">
+    <!-- Contenido dinámico aquí -->
+  </main>
+
+  <script>
+    const blogEntries = [
+      {
+        id: 1,
+        title: "Feria de Queso y Vino",
+        image: "casimerita1.jpeg",
+        content: `
+          <h2> Unas de las escapadas más memorables que hemos tenido.</h2>
+          <p>Experimentando por primera vez estados alterados de la conciencia y vino delicioso</p>
+          <img src="casimerita1.jpeg" alt="Amanecer rosa"/>
+          <p>Concierto de Motel, queso, vino y más.</p>
+        `
+      },
+    ];
+
+    function showHome() {
+      const content = document.getElementById('content');
+      content.innerHTML = blogEntries.map(entry => `
+        <div class="entry-preview" onclick="showPost(${entry.id})">
+          <h2>${entry.title}</h2>
+          <img src="${entry.image}" alt="${entry.title}" />
+          <p><em>Leer más...</em></p>
+        </div>
+      `).join('');
+    }
+
+    function showPost(id) {
+      const entry = blogEntries.find(e => e.id === id);
+      const content = document.getElementById('content');
+      content.innerHTML = `
+        <div class="blog-post">
+          ${entry.content}
+          <button onclick="showHome()">← Volver al inicio</button>
+        </div>
+      `;
+    }
+
+    // Mostrar el home al cargar
+    window.onload = showHome;
+  </script>
+</body>
+</html>
